@@ -18,5 +18,8 @@ pipe = Pipeline([
 model = pipe.fit(X,y)
 
 prediction = model.predict(X)
-plt.scatter(prediction, y)
+plt.scatter(X, y)
+plt.plot(X, prediction, color="red")
+plt.xlabel("Chlorides")
+plt.ylabel("Quality")
 plt.show()

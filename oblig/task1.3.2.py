@@ -17,5 +17,8 @@ pipe = Pipeline([
 
 model = pipe.fit(X,y)
 prediction = model.predict(X)
-plt.scatter(prediction, y)
+plt.scatter(X, y)
+plt.plot(X, prediction, color='red', linewidth=2)
+plt.xlabel("Alcohol %")
+plt.ylabel("Quality")
 plt.show()
