@@ -7,7 +7,8 @@ Code was created and ran locally
 
 There are a coupple of libraries needed to run the code
 
-pip install matplotlib
-pip install pandas
-pip install seaborn
-pip install scikit-learn
+- pip install matplotlib
+- pip install pandas
+- pip install seaborn
+- pip install scikit-learn
+- pip install numpy
