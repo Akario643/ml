@@ -23,7 +23,6 @@ pipe = Pipeline([
 
 y_prediction = cross_val_predict(pipe, X,y, cv=skfolds)
 plt.scatter(y, y_prediction, alpha=0.1)
-plt.plot([y.min(), y.max()], [y.min(), y.max()], color="red", linestyle='dashed')
 plt.xlabel("Actual values")
 plt.ylabel("Prediction")
 plt.title("Multi Regression")
