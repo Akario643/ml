@@ -14,23 +14,27 @@ file_path = 'oblig\WineQT.csv' # you might have to change this to run locally
 wine = pd.read_csv(file_path) 
 wine = wine.drop(columns=['Id'])
 
+## Select attributes
 X = wine.drop(columns=['quality'])
 y = wine['quality']
 
-skfolds = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
+## create pipeline
 pipe = Pipeline([
-    ("preprocessor", PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)),
+    ("preprocessor", PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)), ## polynomial and interaction terms
     ("scale", StandardScaler()),
     ("model", SGDRegressor())
 ])
 
-skfolds = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-y_prediction = cross_val_predict(pipe, X,y, cv=skfolds)
+skfolds = StratifiedKFold(n_splits=5, shuffle=True, random_state=42) ## Train test split
+y_prediction = cross_val_predict(pipe, X,y, cv=skfolds) ## predict with model
+
+## Create plot
 plt.scatter(y, y_prediction, alpha=0.1)
+plt.xlabel("Actual Values")
+plt.ylabel("Predicted values")
 plt.show()
 
-
+## Cross validation scores
 r2 = cross_val_score(pipe, X, y, cv=skfolds, scoring='r2')
 mse = cross_val_score(pipe, X, y, cv=skfolds, scoring='neg_mean_squared_error')
 rmse = cross_val_score(pipe, X, y, cv=skfolds, scoring='neg_root_mean_squared_error')

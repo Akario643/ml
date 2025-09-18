@@ -23,13 +23,13 @@ pipe = Pipeline([
 skfolds = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 ## find out what the best parameter for regularization strength
-parameters = {'model__alpha':[0.001,0.01,0.1,1]}
-grid = GridSearchCV(pipe,parameters, cv=skfolds)
-grid.fit(X,y)
-model_grid = grid.best_estimator_ 
+parameters = {'model__alpha':[0.001,0.01,0.1,1]} ## different alpha levels to try in lasso
+grid = GridSearchCV(pipe,parameters, cv=skfolds) ## try the different levels
+grid.fit(X,y) ## fit the model
+model_grid = grid.best_estimator_ ## get the best model 
 
 
-### cross validation
+### create the model
 model = cross_validate(model_grid, X, y, cv=skfolds, return_estimator=True)
 model_list = model['estimator']
 
