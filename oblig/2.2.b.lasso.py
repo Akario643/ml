@@ -39,7 +39,7 @@ coef_list = []
 for i in range(len(model_list)):
     coef_list.append(model_list[i].named_steps['model'].coef_)
     
-coef_list = np.vstack(coef_list) # crate
+coef_list = np.vstack(coef_list) # create one big array
 coef_list = np.mean(coef_list, axis = 0)
 coef_table = pd.DataFrame(list(X.columns)).copy()
 coef_table.insert(len(coef_table.columns), "Coefs", coef_list)
