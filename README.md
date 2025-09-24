@@ -6,6 +6,8 @@ Code was created and ran locally.
 There are two different versions, The oblig version is probably easier to understand per task, but is also more clustered
 The better programming one, is as its name says, better programming, with more helper functions and code reusibility, both versions are the same
 
+the formatting of backslash or forwards slash might change from mac to windows, so if there is an error when running the code, this is most likely the issue
+
 ## Pre Requisits
 
 There are a coupple of libraries needed to run the code
