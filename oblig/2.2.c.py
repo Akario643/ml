@@ -6,6 +6,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
+from sklearn.model_selection import GridSearchCV
 
 filepath = 'oblig/WineQT.csv' # if it doesn't work, try to change this
 wine = pd.read_csv(filepath)
@@ -23,9 +24,18 @@ pipe = Pipeline([
 
 ## Cross validation
 skfolds  = StratifiedKFold(n_splits=5, shuffle=True, random_state=42) ## create train test split
-r2 = cross_val_score(pipe, X, y, cv=skfolds, scoring='r2')
-mse = cross_val_score(pipe, X, y, cv=skfolds, scoring='neg_mean_squared_error')
-rmse = cross_val_score(pipe, X, y, cv=skfolds, scoring='neg_root_mean_squared_error')
+
+## find out what the best parameters for the decision tree
+parameters = {'model__n_estimators':[100,200,400,500], 'model__max_depth':[2,5,8,10,20], "model__min_samples_split":[2,5,10,15], "model__min_samples_leaf":[1,3,4,7]}
+grid = GridSearchCV(pipe,parameters, cv=skfolds) ## try the different levels
+grid.fit(X,y) ## fit the model
+model_grid = grid.best_estimator_ ## get the best model 
+
+
+#cross validate the model
+r2 = cross_val_score(model_grid, X, y, cv=skfolds, scoring='r2')
+mse = cross_val_score(model_grid, X, y, cv=skfolds, scoring='neg_mean_squared_error')
+rmse = cross_val_score(model_grid, X, y, cv=skfolds, scoring='neg_root_mean_squared_error')
 
 meanR = np.mean(r2) 
 meanM = np.mean(mse) 
